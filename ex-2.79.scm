@@ -5,7 +5,7 @@
   (put 'equ? '(scheme-number scheme-number) =))
 
 (define (install-rational-package)
-  (put 'equ? '(rational rational) (equal? x y)))
+  (put 'equ? '(rational rational) equal?))
 
 (define (install-complex-package)
   (put 'equ? '(complex complex)
