@@ -2,8 +2,7 @@
   (apply-generic 'equ? x y))
 
 (define (install-scheme-number-package)
-  (put 'equ? '(scheme-number scheme-number)
-       (lambda (x y) (= x y))))
+  (put 'equ? '(scheme-number scheme-number) =))
 
 (define (install-rational-package)
   (put 'equ? '(rational rational) (equal? x y)))
