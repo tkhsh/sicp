@@ -33,14 +33,14 @@
           (go (cdr rest))))))
   (go args))
 
-(define (is-all-type-tags-same args)
+(define (all-type-tags-same? args)
   (let ((t1 (type-tag (car args)))
         (t2 (type-tag (cadr args)))
         (rest (cddr args)))
     (if (null? rest)
       (equal? t1 t2)
       (and (equal? t1 t2)
-         (is-all-type-tags-same rest)))))
+         (all-type-tags-same? rest)))))
 
 (define (apply-generic op . args)
   (let ((type-tags (map type-tag args)))
