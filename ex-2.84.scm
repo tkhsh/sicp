@@ -15,7 +15,7 @@
   (define (loop rest)
     (if (null? rest)
       (error 'errorhappen)
-      (let ([a (car rest)]
+      (let ([a1 (car rest)]
             [t1 (type-tag a1)])
         (if (lowest-tyes? t1 types)
           (cons (raise a1) (cdr rest))
