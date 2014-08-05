@@ -8,7 +8,7 @@
         (apply proc (map contents args))
         (apply-generic
           op
-          (raise-args-one-step ))))))
+          (apply raise-args-one-step args))))))
 
 (define (raise-args-one-step args)
   (define types (map type-tag args))
