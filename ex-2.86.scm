@@ -4,7 +4,7 @@
 (put 'sine '(complex)
      (lambda (x)
        (if (valid-angle? (angle x))
-         (apply-generic 'sine (angle x))
+         (sine (angle x))
          (error "Invalid datum"))))
 (put 'sine '(real) sin)
 
@@ -14,7 +14,7 @@
 (put 'cosine '(comple)
      (lambda (x)
        (if (valid-angle? (angle x))
-         (apply-generic 'cosine (angle x))
+         (cosine (angle x))
          (error "Invalid datum"))))
 (put 'cosine '(real) cos)
 
