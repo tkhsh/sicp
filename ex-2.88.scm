@@ -10,9 +10,9 @@
              (negate-all-terms (term-list p)))))
 
 (define (negate-all-terms termlist)
-  (let ([t1 (first-term termlist)])
-    (if (empty-term-list? (termlist))
-      (the-empty-termlist)
+  (if (empty-term-list? (termlist))
+    the-empty-termlist
+    (let ([t1 (first-term termlist)])
       (adjoin-term
         (make-term (order t1)
                    (negate (coeff t1)))
