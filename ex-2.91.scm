@@ -1,5 +1,5 @@
 (load "./sec-2.5.3.scm")
-(load "./ex-2.91.scm")
+(load "./ex-2.88.scm")
 
 (define (div-poly p1 p2)
   (if (same-variable? (variable p1) (variable p2))
@@ -20,13 +20,12 @@
               (new-o (- (order t1) (order t2))))
           (let ((rest-of-result
                   (div-terms
-                    (- L1
-                       (mul-terms
-                         (adjoin-term (make-term new-o new-c) the-empty-termlist)
-                         L2))
+                    (sub-terms
+                      L1
+                      (mul-terms-by-all-terms (make-term new-o new-c) L2))
                     L2)))
             (let ((q (car rest-of-result))
                   (r (cadr rest-of-result)))
-              (list (cons (make-term new-o new-c) q)
+              (list (adjoin-term (make-term new-o new-c) q)
                     r))))))))
 
