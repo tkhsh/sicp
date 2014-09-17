@@ -3,8 +3,9 @@
 (load "./ex-2.85.scm")
 
 (define (variable<? v1 v2)
-  ; TODO
-  )
+  (string<?
+    (symbol->string v1)
+    (symbol->string v2)))
 
 (define (add-poly p1 p2)
   (let ((v1 (variable p1))
