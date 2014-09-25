@@ -1,5 +1,5 @@
 (define (make-account balance password)
-  (let ((count 7))
+  (let ((count 0))
     (define (withdraw amount)
       (if (>= balance amount)
         (begin (set! balance (- balance amount))
@@ -10,16 +10,17 @@
       balance)
     (define (dispatch input-password m)
       (if (eq? input-password password)
-        (cond ((eq? m 'withdraw) withdraw)
-              ((eq? m 'deposit) deposit)
-              (else (error "Unknown request -- MAKE-ACCOUNT"
-                           m)))
-        (begin (set! count (- count 1))
-               (if (= count 0)
-                 call-the-cops
+        (begin (set! count 0)
+               (cond ((eq? m 'withdraw) withdraw)
+                     ((eq? m 'deposit) deposit)
+                     (else (error "Unknown request -- MAKE-ACCOUNT"
+                                  m))))
+        (begin (set! count (+ count 1))
+               (if (= count 7)
+                 (call-the-cops)
                  complain))))
     dispatch))
 
-(define (call-the-cops x) "call-the-cops")
+(define (call-the-cops) "call-the-cops")
 (define (complain x) "Incorrect password")
 
