@@ -10,16 +10,16 @@
 
 ; improved
 (define (new-stream-map proc . argstreams)
-  (if (any-null-stream? argstreams)
+  (if (any stream-null? argstreams)
     the-empty-stream
     (cons-stream
       (apply proc (map stream-car argstreams))
       (apply new-stream-map
              (cons proc (map stream-cdr argstreams))))))
 
-(define (any-null-stream? streams)
-  (cond ((null? streams)
+(define (any pred list)
+  (cond ((null? list)
          #f)
-        ((stream-null? (car streams))
-         #t)
-        (else (any-null-stream? (cdr streams)))))
+        ((pred (car list))
+         (pred (car list)))
+        (else (any pred (cdr list)))))
