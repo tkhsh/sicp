@@ -66,3 +66,8 @@
     'done
     (begin (display-line (stream-car s))
            (stream-take (stream-cdr s) (- n 1)))))
+
+; ex-3.51
+(define (show x)
+  (display-line x)
+  x)
