@@ -18,8 +18,7 @@
              (cons proc (map stream-cdr argstreams))))))
 
 (define (any pred list)
-  (cond ((null? list)
-         #f)
-        ((pred (car list))
-         (pred (car list)))
-        (else (any pred (cdr list)))))
+  (if (null? list)
+    #f
+    (or (pred (car list))
+        (any pred (cdr list)))))
