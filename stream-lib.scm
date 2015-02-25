@@ -20,18 +20,7 @@
 ;                    (stream-map proc (stream-cdr s)))))
 
 ; ex-3.50 new-stream-map
-(define (stream-map proc . argstreams)
-  (if (any stream-null? argstreams)
-    the-empty-stream
-    (cons-stream
-      (apply proc (map stream-car argstreams))
-      (apply stream-map
-             (cons proc (map stream-cdr argstreams))))))
-(define (any pred list)
-  (if (null? list)
-    #f
-    (or (pred (car list))
-        (any pred (cdr list)))))
+(load "./ex-3.50.scm")
 
 (define (stream-for-each proc s)
   (if (stream-null? s)
