@@ -20,7 +20,8 @@
 ;                    (stream-map proc (stream-cdr s)))))
 
 ; ex-3.50 new-stream-map
-(load "./ex-3.50.scm")
+(provide "./stream-lib.scm")
+(require "./ex-3.50.scm")
 
 (define (stream-for-each proc s)
   (if (stream-null? s)

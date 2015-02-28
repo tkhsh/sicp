@@ -1,4 +1,5 @@
-(load "./stream-lib.scm")
+(provide "./ex-3.50.scm")
+(require "./stream-lib.scm")
 
 (define (stream-map proc . argstreams)
   (if (stream-null? (car argstreams))
