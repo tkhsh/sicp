@@ -109,3 +109,5 @@
           ((divisible? n (stream-car ps)) false)
           (else (iter (stream-cdr ps)))))
   (iter primes))
+
+(require "./ex-3.54.scm")
