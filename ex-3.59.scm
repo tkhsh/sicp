@@ -7,8 +7,16 @@
                            integers)))
 
 ; b
+; exp-seriesは、exp-seriesの積分に定数1をconsすることで作れる
+; integrate-seriesは、引数power-series-streamのn番目の要素からn+1番目の要素を作ることができる
+; exp-seriesの最初の要素は1なので、(integrate-series exp-series)は2番目の要素、3番目の要素...
+; という風にexp-se
 (define exp-series
   (cons-stream 1 (integrate-series exp-series)))
+; 微分を使う方法はうまくいかない。streamの性質上？
+; (define (derivative-series series-stream)
+;   (mul-streams series-stream integers))
+;
 (define cosine-series
   (cons-stream 1 (scale-stream (integrate-series sine-series) -1)))
 
