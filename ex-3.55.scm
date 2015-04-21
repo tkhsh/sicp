@@ -6,4 +6,5 @@
                (add-streams (stream-cdr stream)
                             (partial-sums stream))))
 
-(display-stream (stream-take (partial-sums integers) 5000))
+(define (main args)
+  (display-stream (stream-take (partial-sums integers) 5000)))
