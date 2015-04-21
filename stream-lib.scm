@@ -111,6 +111,7 @@
   (iter primes))
 
 (require "./ex-3.54.scm")
+(require "./ex-3.55.scm")
 
 ; sec-3.5.3
 (define (sqrt-improve guess x)
