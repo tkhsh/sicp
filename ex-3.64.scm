@@ -3,8 +3,7 @@
 (define (stream-limit s tolerance)
   (let ((e1 (stream-ref s 0))
         (e2 (stream-ref s 1)))
-    (if (< tolerance
-           (abs (- e1 e2)))
+    (if (< (abs (- e1 e2)) tolerance)
       e2
       (stream-limit (stream-cdr s) tolerance))))
 
