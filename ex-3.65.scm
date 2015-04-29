@@ -8,9 +8,14 @@
 
 (define (main args)
   ; first
-  (display-stream ln2-stream)
+  (print "--------first-------")
+  (display-stream (stream-take ln2-stream 10))
   ; second
-  (display-stream (euler-transform ln2-stream))
+  (print "--------second------")
+  (display-stream (stream-take (euler-transform ln2-stream)
+                               10))
   ; third
-  (display-stream (accelerated-sequence euler-transform
-                                        ln2-stream)))
+  (print "--------third-------")
+  (display-stream (stream-take (accelerated-sequence euler-transform
+                                         ln2-stream)
+                               10)))
