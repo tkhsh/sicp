@@ -1,29 +1,29 @@
 (require "./stream-lib")
 (require "./ex-3.70")
 
-(define (sqrt-weight pair)
+(define (square-weight pair)
   (let ((i (car pair))
         (j (cadr pair)))
     (+ (* i i) (* j j))))
 
-(define sqrt-weighted-pairs
+(define square-weighted-pairs
   (weighted-pairs integers
                   integers
-                  sqrt-weight))
+                  square-weight))
 
-(define (generate-sqrt-sum)
-  (define (_generate-ramanujan s prev count)
+(define (generate-square-sum)
+  (define (go s prev count)
     (if (stream-null? s)
       the-empty-stream
-      (let ((w (sqrt-weight (stream-car s))))
+      (let ((w (square-weight (stream-car s))))
         (if (equal? w prev)
-          (_generate-ramanujan (stream-cdr s) prev (+ count 1))
+          (go (stream-cdr s) prev (+ count 1))
           (if (= count 3)
             (cons-stream w
-                         (_generate-ramanujan (stream-cdr s) prev 0))
-            (_generate-ramanujan (stream-cdr s) w 0))))))
-  (_generate-ramanujan sqrt-weighted-pairs #f 0))
+                         (go (stream-cdr s) prev 0))
+            (go (stream-cdr s) w 0))))))
+  (go square-weighted-pairs #f 0))
 
 (define (main args)
-  (display-stream (stream-take (generate-sqrt-sum)
+  (display-stream (stream-take (generate-square-sum)
                                6)))
