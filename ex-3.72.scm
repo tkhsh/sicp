@@ -19,10 +19,10 @@
         (if (equal? w prev)
           (go (stream-cdr s) prev (+ count 1))
           (if (= count 3)
-            (cons-stream w
-                         (go (stream-cdr s) prev 0))
-            (go (stream-cdr s) w 0))))))
-  (go square-weighted-pairs #f 0))
+            (cons-stream prev
+                         (go (stream-cdr s) prev 1))
+            (go (stream-cdr s) w 1))))))
+  (go square-weighted-pairs #f 1))
 
 (define (main args)
   (display-stream (stream-take (generate-square-sum)
