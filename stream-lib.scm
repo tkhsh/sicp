@@ -163,3 +163,9 @@
     (stream-map (lambda (x) (list (stream-car s) x))
                 (stream-cdr t))
     (pairs (stream-cdr s) (stream-cdr t)))))
+
+(define (list->stream list)
+  (if (null? list)
+    the-empty-stream
+    (cons-stream (car list)
+                 (list->stream (cdr list)))))

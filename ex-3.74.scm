@@ -17,12 +17,6 @@
    (make-zero-crossings (stream-cdr input-stream)
                         (stream-car input-stream))))
 
-(define (list->stream list)
-  (if (null? list)
-    the-empty-stream
-    (cons-stream (car list)
-                 (list->stream (cdr list)))))
-
 (define sense-data
   (list->stream '(1  2  1.5  1  0.5  -0.1  -2  -3  -2  -0.5  0.2  3  4)))
 
