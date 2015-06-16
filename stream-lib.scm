@@ -178,13 +178,13 @@
   (define b 1013904223)
   (remainder (+ (* a x) b) m))
 
-(define random-real-numbers
-  (define m (expt 2 32))
-  (scale-stream random-numbers (/ 1 m)))
-
 (define random-numbers
   (cons-stream random-init
                (stream-map rand-update random-numbers)))
+
+(define m (expt 2 32))
+(define random-real-numbers
+  (scale-stream random-numbers (/ 1 m)))
 
 (define (map-successive-pairs f s)
   (cons-stream
