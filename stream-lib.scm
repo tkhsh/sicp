@@ -47,6 +47,11 @@
 (define (display-stream s)
   (stream-for-each display-line s))
 
+(define (stream-count s c)
+  (if (stream-null? s)
+    c
+    (stream-count (stream-cdr s) (+ c 1))))
+
 (define (display-line x)
   (newline)
   (display x))
