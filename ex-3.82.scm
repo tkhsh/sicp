@@ -1,18 +1,20 @@
 (require "./stream-lib")
 
 (define (estimated-integral-stream p x1 x2 y1 y2)
-  (define (random-numbers-in-range low high)
+  (define (stream-range s low high)
     (stream-map (lambda (r)
                   (let ((range (- high low)))
                     (+ low (* r range))))
-                random-real-numbers))
+                s))
+  (define random-points
+    (map-successive-pairs (lambda (x y) (list x y))
+                          random-real-numbers))
   (define experiment-stream
-    (if (and (= x1 y1) (= x2 y2))
-      (map-successive-pairs p
-                            (random-numbers-in-range x1 x2))
+    (let ((x-stream (stream-map car random-points))
+          (y-stream (stream-map cadr random-points)))
       (stream-map p
-                 (random-numbers-in-range x1 x2)
-                 (random-numbers-in-range y1 y2))))
+                  (stream-range x-stream x1 x2)
+                  (stream-range y-stream y1 y2))))
   (stream-map (lambda (e)
                 (* (* (- x2 x1) (- y2 y1))
                    e))
