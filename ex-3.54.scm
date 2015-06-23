@@ -5,11 +5,7 @@
 
 (define factorials
   (cons-stream 1 (mul-streams
-                   (stream-cdr integers)
+                   factorials
                    (stream-cdr integers))))
 
-
-(define (main args)
-  ; (display-stream (stream-take factorials 5))
-  (display-stream (stream-take (partial-sums integers) 5))
-  )
+; (display-stream (stream-take factorials 5))
