@@ -10,11 +10,9 @@
     (map-successive-pairs (lambda (x y) (list x y))
                           random-real-numbers))
   (define experiment-stream
-    (let ((x-stream (stream-map car random-points))
-          (y-stream (stream-map cadr random-points)))
-      (stream-map p
-                  (stream-range x-stream x1 x2)
-                  (stream-range y-stream y1 y2))))
+    (let ((x-stream (stream-range (stream-map car random-points) x1 x2))
+          (y-stream (stream-range (stream-map cadr random-points) y1 y2)))
+      (stream-map p x-stream y-stream)))
   (stream-map (lambda (e)
                 (* (* (- x2 x1) (- y2 y1))
                    e))
