@@ -10,7 +10,7 @@
                       clauses)))
             ((cond-proc-clause? first)
              (make-if (cond-predicate first)
-                      ((cond-proc first) (cond-predicate first))
+                      (make-application (cond-proc first) (cond-predicate first))
                       (expand-clauses rest)))
             (else (make-if (cond-predicate first)
                            (sequence->exp (cond-actions first))
@@ -21,3 +21,6 @@
 
 (define (cond-proc clause)
   (cadr clause))
+
+(define (make-application operator operand)
+  (list operator operand))
