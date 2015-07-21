@@ -27,7 +27,8 @@
 (define (let-body exp) (cddr exp))
 
 (define (let->combination exp)
-  (let ((vars (map car (let-bindings exp)))
-        (vals (map cadr (let-bindings exp))))
+  (let* ((bindings (let-bindings exp))
+         (vars (map car bindings))
+         (val-exps (map cadr bindings)))
     (cons (make-lambda vars (let-body exp))
-          vals)))
+          val-exps)))
