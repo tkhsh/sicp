@@ -9,9 +9,10 @@
                (error "ELSE clause isn't last -- COND->IF"
                       clauses)))
             ((cond-proc-clause? first)
-             (make-if (cond-predicate first)
-                      (make-application (cond-proc first) (cond-predicate first))
-                      (expand-clauses rest)))
+             (make-let (list (list 'p (cond-predicate first))) ;TOFIX 変数名が衝突するバグ
+                       (list (make-if 'p
+                                      (make-application (cond-proc first) 'p)
+                                      (expand-clauses rest)))))
             (else (make-if (cond-predicate first)
                            (sequence->exp (cond-actions first))
                            (expand-clauses rest))))))))
