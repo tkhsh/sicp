@@ -11,7 +11,7 @@
             ((cond-proc-clause? first)
              (make-let (list (list 'p (cond-predicate first))) ;TOFIX 変数名が衝突するバグ
                        (list (make-if 'p
-                                      (make-application (cond-proc first) 'p)
+                                      (make-application (cond-proc first) '(p))
                                       (expand-clauses rest)))))
             (else (make-if (cond-predicate first)
                            (sequence->exp (cond-actions first))
@@ -23,5 +23,5 @@
 (define (cond-proc clause)
   (cadr clause))
 
-(define (make-application operator operand)
-  (list operator operand))
+(define (make-application operator operands)
+  (cons operator operands))
