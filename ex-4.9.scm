@@ -37,8 +37,15 @@
                    (set! x (+ x 1))))))
 
 ; ver.2
-; (for (var init-val cond f)
+; (for (var init-val cond next)
 ;      body)
+;
+; (let recur ((var init-val))
+;   (if cond
+;     (begin body
+;            (recur next))
+;     false)))
+
 ; ex
 ; (let recur ()
 ;   (if (> x 10)
@@ -56,7 +63,7 @@
 (define (for-cond exp)
   (caddr (cadr exp)))
 
-(define (for-f exp)
+(define (for-next exp)
   (cadddr (cadr exp)))
 
 (define (for-body exp)
