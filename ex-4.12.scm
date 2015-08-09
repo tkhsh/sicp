@@ -1,38 +1,43 @@
 (define (lookup-variable-value var env)
-  (define (env-loop env)
-    (if (eq? env the-empty-environment)
-      (error "Unbound variable" var)
-      (scan (first-frame env)
+  (scan-env env
             var
-            (lambda (frame) (car (frame-values frame)))
-            (lambda (_) (env-loop (enclosing-environment env))))))
-  (env-loop env))
+            (lambda (vars vals frame) (car vals))
+            (lambda (vars vals frame) (scan-env (enclosing-environment env)))
+            (lambda () (error "Unbound variable" var))))
 
 (define (set-variable-value! var val env)
-  (define (env-loop env)
-    (if (eq? env the-empty-environment)
-      (error "Unbound variable -- SET!" var)
-      (scan (first-frame env)
+  (scan-env env
             var
-            (lambda (frame) (set-first-binding-value! frame val))
-            (lambda (_) (env-loop (enclosing-environment env))))))
-  (env-loop env))
+            (lambda (vars vals frame) (set-car! vals val))
+            (lambda (vars vals frame) (scan-env (enclosing-environment env)))
+            (lambda () (error "Unbound variable -- SET!" var))))
 
 (define (define-variable! var val env)
-  (scan (first-frame env)
-        (lambda (frame) (set-first-binding-value! frame val))
-        (lambda (frame) (add-binding-to-frame! var val frame))))
+  (scan-env env
+            var
+            (lambda (vars vals frame) (set-car! vals val))
+            (lambda (vars vals frame) (add-binding-to-frame! var val frame))
+            (lambda () (error "Unexpected error -- DEFINE" var))))
 
-(define (scan frame target-variable found not-found)
-  (let ((vars (frame-variables frame))
-        (vals (frame-values frame)))
+(define (scan-frame frame target-variable found not-found)
+  (let go ((vars (frame-variables frame))
+           (vals (frame-values frame)))
     (cond ((null? vars)
-           (not-found frame))
+           (not-found vars vals frame))
           ((eq? target-variable (car vars))
-           (found frame))
-          (else (make-frame (cdr vars) (cdr vals))))))
+           (found vars vals frame))
+          (else (go (cdr vars) (cdr vals))))))
 
-(define (set-first-binding! frame val)
-  (set-car! (frame-values frame) val))
-(define (set-first-binding! frame val)
-  (set-cdr! (car frame) val))
+(define (scan-env env var found not-found-in-frame not-found-in-env)
+  (if (eq? env the-empty-environment)
+    (not-found-in-env)
+    (scan-frame (first-frame env)
+                var
+                found
+                not-found-in-frame)))
+
+; TODO
+; (define (set-first-binding! frame val)
+;   (set-car! (frame-values frame) val))
+; (define (set-first-binding! frame val)
+;   (set-cdr! (car frame) val))
