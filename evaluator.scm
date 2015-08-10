@@ -1,4 +1,6 @@
 (define apply-in-underlying-scheme apply)
+(define true #t)
+(define false #f)
 
 (define (apply procedure arguments)
   (cond ((primitive-procedure? procedure)
