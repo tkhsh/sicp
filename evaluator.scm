@@ -299,7 +299,13 @@
         (list 'cdr cdr)
         (list 'cons cons)
         (list 'null? null?)
+        (list 'map map)
         ; <more primitives>
+        (list '= =)
+        (list '+ +)
+        (list '- -)
+        (list '* *)
+        (list '/ /)
         ))
 
 (define (primitive-procedure-names)
