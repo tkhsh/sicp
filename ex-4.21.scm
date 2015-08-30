@@ -1,0 +1,65 @@
+; a
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fib (- n 1))
+                 (fib (- n 2))))))
+; (fib 5)
+
+((lambda (n)
+   ((lambda (fib)
+      (fib fib n))
+    (lambda (fb k)
+      (cond ((= k 0) 0)
+            ((= k 1) 1)
+            (else (+ (fb fb (- k 1))
+                     (fb fb (- k 2))))))))
+ 5)
+
+; b
+(define (f1 x)
+  (define (even? n)
+    (if (= n 0)
+        #t
+        (odd? (- n 1))))
+  (define (odd? n)
+    (if (= n 0)
+        #f
+        (even? (- n 1))))
+  (even? x))
+
+(define (f2 x)
+  ((lambda (even? odd?)
+     (even? even? odd? x))
+   (lambda (ev? od? n)
+     (if (= n 0) #t (od? ev? od? (- n 1))))
+   (lambda (ev? od? n)
+     (if (= n 0) #f (ev? ev? od? (- n 1))))))
+
+(define (main args)
+  ; (print ((lambda (n)
+  ;           ((lambda (fact)
+  ;              (fact fact n))
+  ;            (lambda (ft k)
+  ;              (if (= k 1)
+  ;                1
+  ;                (* k (ft ft (- k 1)))))))
+  ;         10))
+
+  ; (print (fib 8))
+  ; (print ((lambda (n)
+  ;           ((lambda (fib)
+  ;              (fib fib n))
+  ;            (lambda (fb k)
+  ;              (cond ((= k 0) 0)
+  ;                    ((= k 1) 1)
+  ;                    (else (+ (fb fb (- k 1))
+  ;                             (fb fb (- k 2))))))))
+  ;         8))
+
+  (print (f1 8))
+  (print (f1 7))
+  (print (f2 8))
+  (print (f2 7))
+  )
+
