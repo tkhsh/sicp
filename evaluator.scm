@@ -299,12 +299,17 @@
         (list 'cdr cdr)
         (list 'cons cons)
         (list 'null? null?)
+        (list 'list list)
         ; <more primitives>
         (list '= =)
         (list '+ +)
         (list '- -)
         (list '* *)
         (list '/ /)
+        (list '> >)
+        (list '< <)
+        (list 'newline newline)
+        (list 'display display)
         ))
 
 (define (primitive-procedure-names)
