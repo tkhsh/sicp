@@ -1,0 +1,2 @@
+;; luisの実装がうまく動かない理由はprimitiveのmapにmetacircular用のprocedure objectを渡しているから。
+;; primitiveのmapにはprimitiveなlambdaを渡さないとうごかない。
