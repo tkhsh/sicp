@@ -359,3 +359,11 @@
 (define the-global-environment (setup-environment))
 
 (driver-loop)
+
+(define (eval-exps exps)
+  (for-each (lambda (e)
+             (print input-prompt)
+             (print e)
+             (print output-prompt)
+             (print (eval e the-global-environment)))
+           exps))
