@@ -106,3 +106,12 @@
         (else obj)))
 
 (driver-loop)
+
+(define (force-exps exps)
+  (for-each (lambda (e)
+              (print input-prompt)
+              (print e)
+              (print output-prompt)
+              (print (actual-value e the-global-environment))
+              )
+            exps))
