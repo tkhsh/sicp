@@ -1,6 +1,4 @@
 (define apply-in-underlying-scheme apply)
-(define true #t)
-(define false #f)
 
 (define (apply procedure arguments)
   (cond ((primitive-procedure? procedure)
@@ -66,9 +64,9 @@
   'ok)
 
 (define (self-evaluating? exp)
-  (cond ((number? exp) true)
-        ((string? exp) true)
-        (else false)))
+  (cond ((number? exp) #t)
+        ((string? exp) #t)
+        (else #f)))
 
 (define (variable? exp) (symbol? exp))
 
@@ -80,7 +78,7 @@
 (define (tagged-list? exp tag)
   (if (pair? exp)
       (eq? (car exp) tag)
-      false))
+      #f))
 
 (define (assignment? exp)
   (tagged-list? exp 'set!))
@@ -206,10 +204,10 @@
 
 ; sec-4.1.3
 (define (true? x)
-  (not (eq? x false)))
+  (not (eq? x #f)))
 
 (define (false? x)
-  (eq? x false))
+  (eq? x #f))
 
 (define (make-procedure parameters body env)
   (list 'procedure parameters body env))
