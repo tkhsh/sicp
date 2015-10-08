@@ -105,7 +105,7 @@
          (thunk-value obj))
         (else obj)))
 
-(driver-loop)
+; (driver-loop)
 
 (define (force-exps exps)
   (for-each (lambda (e)

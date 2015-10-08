@@ -358,7 +358,7 @@
 
 (define the-global-environment (setup-environment))
 
-(driver-loop)
+; (driver-loop)
 
 (define (eval-exps exps)
   (for-each (lambda (e)
