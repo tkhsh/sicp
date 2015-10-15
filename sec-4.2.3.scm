@@ -39,7 +39,8 @@
       y)
     )
   )
-(force-exps lazy-lists-exps)
+(for-each (lambda (e) (actual-value e the-global-environment))
+          lazy-lists-exps)
 
 ; (define (main args)
 ; (driver-loop)
