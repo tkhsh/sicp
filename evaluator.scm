@@ -275,6 +275,7 @@
                 (frame-values frame)))))
   (env-loop env))
 
+; if env is '(), error occur
 (define (define-variable! var val env)
   (let ((frame (first-frame env)))
     (define (scan vars vals)
