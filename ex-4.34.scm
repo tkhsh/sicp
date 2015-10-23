@@ -8,50 +8,51 @@
       (z (lambda (i p q) p)))
     (define (cdr z)
       (z (lambda (i p q) q)))
-
-    (define (format-lazy-list lazy-obj)
-      (if (null? (cdr lazy-obj))
-        (list (car lazy-obj))
-        (primitive-cons (car lazy-obj)
-                        (format-lazy-list (cdr lazy-obj)))))
     ))
 (force-exps lazy-printable)
 
-(define (lazy? input)
-  (cond ((null? input) #f)
+(define (lazy-pair? input)
+  (cond ((not (pair? input)) #f)
         ((not (eq? (car input) 'procedure)) #f)
         (else
           (eq? 'lazy (cadar (procedure-body input))))))
 
-(define (format-value v env)
-  (if (lazy? v)
-    (actual-value '(format-lazy-list result-of-exp); TOFIX: 名前が衝突する恐れがある
-                  (extend-environment '(result-of-exp) (list v) env))
-    ; 遅延リストを直接置くとエラーになるので注意.
-    ; 以下はエラーになる。
-    ; (actual-value `(format-lazy-list ,v) env)
-    ; 参考
-    ; 以下は動く
-    ; (actual-value '(format-lazy-list (cons 1 '())) env)
-    ; (actual-value '(format-lazy-list test-list) env)
-    v))
+(define (procedure->lambda proc)
+  (make-lambda (procedure-parameters proc)
+               (procedure-body proc)))
+
+(define (print-object object)
+  (define (display-delayed-cell cell)
+    (if (lazy-pair? cell)
+      (display "<lazy-obj>")
+      (display cell)))
+
+  (cond ((lazy-pair? object)
+         (display "(")
+         (display-delayed-cell (actual-value `(car ,(procedure->lambda object))
+                                             (procedure-environment object)))
+         (display ".")
+         (display-delayed-cell (actual-value `(cdr ,(procedure->lambda object))
+                                             (procedure-environment object)))
+         (display ")"))
+        ((compound-procedure? object)
+         (display (list 'compound-procedure
+                        (procedure-parameters object)
+                        (procedure-body object)
+                        '<procedure-env>)))
+        (else (display object))))
 
 (define test-exps
-  '(cons 1 '()) ; -> (1 '())
-  ; '(format-lazy-list (cons 1 '()))
-  ; '(format-lazy-list (cons 1 (cons 2 '())))
+  '(cons 1 (cons 2 '())) ; -> (1 '())
+  ; '(lambda (lazy) (list lazy))
+  ; '(print-object (cons 1 '()))
+  ; '(print-object (cons 1 (cons 2 '())))
   )
 
-(define (driver-loop)
-  (prompt-for-input input-prompt)
-  (let ((input (read)))
-    (let ((output
-            (format-value (actual-value input the-global-environment)
-                          the-global-environment)))
-      (announce-output output-prompt)
-      (user-print output)))
-  (driver-loop))
+(define (user-print object)
+  (print-object object)
+  (newline))
 
 (define (main args)
-  (print (format-value (actual-value test-exps the-global-environment) the-global-environment))
+  (print-object (actual-value test-exps the-global-environment))
   )
