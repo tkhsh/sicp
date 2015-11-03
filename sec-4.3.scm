@@ -18,7 +18,7 @@
         ((amb? exp) (analyze-amb exp)) ;; changed
         ((application? exp) (analyze-application exp))
         (else
-         (error "Unknown expression type -- ANALYZE" exp))))
+          (error "Unknown expression type -- ANALYZE" exp))))
 
 (define (ambeval exp env succeed fail)
   ((analyze exp) env succeed fail))
@@ -54,8 +54,8 @@
              ;; to obtain pred-value
              (lambda (pred-value fail2)
                (if (true? pred-value)
-                   (cproc env succeed fail2)
-                   (aproc env succeed fail2)))
+                 (cproc env succeed fail2)
+                 (aproc env succeed fail2)))
              ;; failure continuation for evaluating the predicate
              fail))))
 
@@ -70,12 +70,12 @@
          fail)))
   (define (loop first-proc rest-procs)
     (if (null? rest-procs)
-        first-proc
-        (loop (sequentially first-proc (car rest-procs))
-              (cdr rest-procs))))
+      first-proc
+      (loop (sequentially first-proc (car rest-procs))
+            (cdr rest-procs))))
   (let ((procs (map analyze exps)))
     (if (null? procs)
-        (error "Empty sequence -- ANALYZE"))
+      (error "Empty sequence -- ANALYZE"))
     (loop (car procs) (cdr procs))))
 
 (define (analyze-definition exp)
@@ -115,25 +115,25 @@
                          env
                          (lambda (args fail3)
                            (execute-application
-                            proc args succeed fail3))
+                             proc args succeed fail3))
                          fail2))
              fail))))
 
 (define (get-args aprocs env succeed fail)
   (if (null? aprocs)
-      (succeed '() fail)
-      ((car aprocs) env
-                    ;; success continuation for this aproc
-                    (lambda (arg fail2)
-                      (get-args (cdr aprocs)
-                                env
-                                ;; success continuation for recursive
-                                ;; call to get-args
-                                (lambda (args fail3)
-                                  (succeed (cons arg args)
-                                           fail3))
-                                fail2))
-                    fail)))
+    (succeed '() fail)
+    ((car aprocs) env
+                  ;; success continuation for this aproc
+                  (lambda (arg fail2)
+                    (get-args (cdr aprocs)
+                              env
+                              ;; success continuation for recursive
+                              ;; call to get-args
+                              (lambda (args fail3)
+                                (succeed (cons arg args)
+                                         fail3))
+                              fail2))
+                  fail)))
 
 (define (execute-application proc args succeed fail)
   (cond ((primitive-procedure? proc)
@@ -147,20 +147,20 @@
           succeed
           fail))
         (else
-         (error
-          "Unknown procedure type -- EXECUTE-APPLICATION"
-          proc))))
+          (error
+            "Unknown procedure type -- EXECUTE-APPLICATION"
+            proc))))
 
 (define (analyze-amb exp)
   (let ((cprocs (map analyze (amb-choices exp))))
     (lambda (env succeed fail)
       (define (try-next choices)
         (if (null? choices)
-            (fail)
-            ((car choices) env
-                           succeed
-                           (lambda ()
-                             (try-next (cdr choices))))))
+          (fail)
+          ((car choices) env
+                         succeed
+                         (lambda ()
+                           (try-next (cdr choices))))))
       (try-next cprocs))))
 
 (define input-prompt ";;; Amb-Eval input:")
@@ -170,25 +170,25 @@
     (prompt-for-input input-prompt)
     (let ((input (read)))
       (if (eq? input 'try-again)
-          (try-again)
-          (begin
-            (newline)
-            (display ";;; Starting a new problem ")
-            (ambeval input
-                     the-global-environment
-                     ;; ambeval success
-                     (lambda (val next-alternative)
-                       (announce-output output-prompt)
-                       (user-print val)
-                       (internal-loop next-alternative))
-                     ;; ambeval failure
-                     (lambda ()
-                       (announce-output
-                        ";;; There are no more values of")
-                       (user-print input)
-                       (driver-loop)))))))
+        (try-again)
+        (begin
+          (newline)
+          (display ";;; Starting a new problem ")
+          (ambeval input
+                   the-global-environment
+                   ;; ambeval success
+                   (lambda (val next-alternative)
+                     (announce-output output-prompt)
+                     (user-print val)
+                     (internal-loop next-alternative))
+                   ;; ambeval failure
+                   (lambda ()
+                     (announce-output
+                       ";;; There are no more values of")
+                     (user-print input)
+                     (driver-loop)))))))
   (internal-loop
-   (lambda ()
-     (newline)
-     (display ";;; There is no current problem")
-     (driver-loop))))
+    (lambda ()
+      (newline)
+      (display ";;; There is no current problem")
+      (driver-loop))))
