@@ -309,6 +309,7 @@
         (list '< <)
         (list 'newline newline)
         (list 'display display)
+        (list 'not not)
         ))
 
 (define (primitive-procedure-names)
