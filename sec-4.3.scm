@@ -195,3 +195,47 @@
                    (user-print input)
                    (driver-loop)))))))
 
+(define (pre-eval-driver-loop qexps)
+  (define rest qexps)
+  (define (go exps try-again)
+    (set! rest (cdr rest))
+    (let ((first (car exps)))
+      (if (eq? first 'try-again)
+        (try-again)
+        (begin
+          (newline)
+          (display ";;; Starting a new problem ")
+          (ambeval first
+                   the-global-environment
+                   ;; ambeval success
+                   (lambda (val next-alternative)
+                     (announce-output output-prompt)
+                     (user-print val)
+                     (if (null? rest)
+                       (internal-loop next-alternative)
+                       (go rest next-alternative)))
+                   ;; ambeval failure
+                   (lambda ()
+                     (announce-output
+                       ";;; There are no more values of")
+                     (user-print first)
+                     (driver-loop)))))))
+  (go
+    qexps
+    (lambda ()
+      (newline)
+      (display ";;; There is no current problem")
+      (driver-loop))))
+
+(define test
+  '(
+    (define (require p) (if (not p) (amb)))
+    (define (an-element-of items)
+      (require (not (null? items)))
+      (amb (car items) (an-element-of (cdr items))))
+    ; (list (amb 1 2 3) (amb 4 5))
+    (amb 1 2 3)
+    try-again
+    ))
+
+; (pre-eval-driver-loop test)
