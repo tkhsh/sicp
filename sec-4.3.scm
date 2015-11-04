@@ -15,6 +15,7 @@
         ((lambda? exp) (analyze-lambda exp))
         ((begin? exp) (analyze-sequence (begin-actions exp)))
         ((cond? exp) (analyze (cond->if exp)))
+        ((let? exp) (analyze (let->combination exp))) ;; cf.ex-4.22
         ((amb? exp) (analyze-amb exp)) ;; changed
         ((application? exp) (analyze-application exp))
         (else
