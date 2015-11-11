@@ -34,7 +34,7 @@
 (pre-eval-driver-loop exps)
 
 ; multiple-dwelling内の制約の順番は解に影響しない。
-; 答えを見つける順番には影響する。
+; 答えを見つけるまでの時間には影響する。
 ; requireの条件式で、処理が重いものを最後に実行することで
 ; 重い条件式が実行される回数が減る。
 ; multiple-dwellingの場合、distinct?の処理が比較的重いので
