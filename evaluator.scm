@@ -313,6 +313,7 @@
         (list 'not not)
         (list 'member member)
         (list 'abs abs)
+        (list 'eq? eq?)
         ))
 
 (define (primitive-procedure-names)
