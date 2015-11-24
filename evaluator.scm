@@ -312,6 +312,7 @@
         (list 'display display)
         (list 'not not)
         (list 'member member)
+        (list 'memq memq)
         (list 'abs abs)
         (list 'eq? eq?)
         ))
