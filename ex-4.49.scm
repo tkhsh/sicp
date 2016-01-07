@@ -11,6 +11,8 @@
         (list (car word-list)
               selected-word)))
 
+    (define (parse input) (parse-sentence))
+
     (parse '())
     try-again
     try-again
