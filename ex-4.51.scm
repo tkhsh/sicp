@@ -47,7 +47,7 @@
     ; (a c 3)
     )
   )
-(pre-eval-driver-loop exps)
+; (pre-eval-driver-loop exps)
 
 ; permanent-set!ではなくset!を使用した場合は
 ; それぞれ以下のように表示される。
