@@ -315,6 +315,7 @@
         (list 'memq memq)
         (list 'abs abs)
         (list 'eq? eq?)
+        (list 'even? even?)
         ))
 
 (define (primitive-procedure-names)
