@@ -316,6 +316,7 @@
         (list 'abs abs)
         (list 'eq? eq?)
         (list 'even? even?)
+        (list 'remainder remainder)
         ))
 
 (define (primitive-procedure-names)
