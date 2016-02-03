@@ -28,7 +28,7 @@
     (lambda (env succeed fail)
       (pproc env
              (lambda (pred-value fail2)
-               (if (not pred-value)
+               (if (not (true? pred-value))
                  (fail2)
                  (succeed 'ok fail2)))
              fail))))
