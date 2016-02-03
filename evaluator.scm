@@ -306,6 +306,7 @@
         (list '* *)
         (list '/ /)
         (list '> >)
+        (list '< <)
         (list '>= >=)
         (list '<= <=)
         (list 'newline newline)
