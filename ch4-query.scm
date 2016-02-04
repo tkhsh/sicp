@@ -674,3 +674,5 @@
           (and (supervisor ?staff-person ?middle-manager)
                (outranked-by ?middle-manager ?boss))))
 ))
+
+(initialize-data-base microshaft-data-base)
