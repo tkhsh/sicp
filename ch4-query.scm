@@ -15,6 +15,27 @@
 (load "./evaluator.scm")
 (define user-initial-environment the-empty-stream)
 
+(define the-empty-stream '())
+(define stream-null? null?)
+
+(define-syntax cons-stream
+  (syntax-rules ()
+    ((_ <a> <b>)
+     (cons <a> (delay <b>)))))
+
+(define (stream-car stream) (car stream))
+(define (stream-cdr stream) (force (cdr stream)))
+
+(define (list->stream list)
+  (if (null? list)
+    the-empty-stream
+    (cons-stream (car list)
+                 (list->stream (cdr list)))))
+(define true #t)
+(define false #f)
+
+(define the-empty-stream '())
+
 ;;;SECTION 4.4.4.1
 ;;;The Driver Loop and Instantiation
 
