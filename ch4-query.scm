@@ -12,6 +12,8 @@
 ;;;;NB. PUT's are commented out and no top-level table is set up.
 ;;;;Instead use initialize-data-base (from manual), supplied in this file.
 
+(load "./evaluator.scm")
+(define user-initial-environment the-empty-stream)
 
 ;;;SECTION 4.4.4.1
 ;;;The Driver Loop and Instantiation
