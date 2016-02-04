@@ -158,6 +158,9 @@
                                        frame)))
         (else 'failed)))
 
+(define (extend variable value frame)
+  (cons (make-binding variable value) frame))
+
 (define (extend-if-consistent var dat frame)
   (let ((binding (binding-in-frame var frame)))
     (if binding
@@ -452,9 +455,6 @@
 
 (define (binding-in-frame variable frame)
   (assoc variable frame))
-
-(define (extend variable value frame)
-  (cons (make-binding variable value) frame))
 
 
 ;;;;From Section 4.1
