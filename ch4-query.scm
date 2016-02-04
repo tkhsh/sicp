@@ -13,7 +13,7 @@
 ;;;;Instead use initialize-data-base (from manual), supplied in this file.
 
 (load "./evaluator.scm")
-(define user-initial-environment the-empty-stream)
+(define user-initial-environment the-global-environment)
 
 (define the-empty-stream '())
 (define stream-null? null?)
