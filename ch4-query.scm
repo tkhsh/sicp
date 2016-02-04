@@ -430,7 +430,7 @@
 
 (define (contract-question-mark variable)
   (string->symbol
-   (string-append "?" 
+   (string-append "?"
      (if (number? (cadr variable))
          (string-append (symbol->string (caddr variable))
                         "-"
@@ -455,7 +455,7 @@
 
 (define (extend variable value frame)
   (cons (make-binding variable value) frame))
-
+
 
 ;;;;From Section 4.1
 
@@ -533,13 +533,13 @@
                       (cons (list key-1
                                   (cons key-2 value))
                             (cdr local-table)))))
-      'ok)    
+      'ok)
     (define (dispatch m)
       (cond ((eq? m 'lookup-proc) lookup)
             ((eq? m 'insert-proc!) insert!)
             (else (error "Unknown operation -- TABLE" m))))
     dispatch))
-
+
 ;;;; From instructor's manual
 
 (define get '())
