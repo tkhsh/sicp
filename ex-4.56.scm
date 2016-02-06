@@ -1,17 +1,24 @@
-; a
-(and (supervisor ?person (Bitdiddle Ben))
-     (address    ?person ?where))
+(load "./ch4-query.scm")
 
-; b
-(and (salary ?person ?amount)
-     (salary (Bitdiddle Ben) ?x)
-     (lisp-value < ?amount ?x))
+(define exps
+  '(
+    ; a
+    (and (supervisor ?person (Bitdiddle Ben))
+         (address    ?person ?where))
 
-; c
-(and (supervisor ?person ?s)
-     (not (job ?s (computer . ?any)))
-     (job ?s ?pos))
+    ; ; b
+    (and (salary ?person ?amount)
+         (salary (Bitdiddle Ben) ?x)
+         (lisp-value < ?amount ?x))
 
-(and (job ?x ?j)
-     (not (job ?x (computer . ?any)))
-     (supervisor ?person ?x))
+    ; c
+    (and (supervisor ?person ?s)
+         (not (job ?s (computer . ?any)))
+         (job ?s ?pos))
+
+    ; (and (job ?x ?j)
+    ;      (not (job ?x (computer . ?any)))
+    ;      (supervisor ?person ?x))
+    ))
+
+(test-qeval exps)
