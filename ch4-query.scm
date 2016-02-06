@@ -677,7 +677,7 @@
 
 (initialize-data-base microshaft-data-base)
 
-(define (test-qeval exps)
+(define (test-queries exps)
   (for-each
     (lambda (exp)
       (prompt-for-input input-prompt)

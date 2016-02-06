@@ -21,4 +21,4 @@
     ;      (supervisor ?person ?x))
     ))
 
-(test-qeval exps)
+(test-queries exps)
