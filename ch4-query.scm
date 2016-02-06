@@ -681,6 +681,7 @@
   (for-each
     (lambda (exp)
       (prompt-for-input input-prompt)
+      (print exp)
       (let ((q (query-syntax-process exp)))
         (cond ((assertion-to-be-added? q)
                (add-rule-or-assertion! (add-assertion-body q))
