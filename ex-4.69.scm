@@ -25,15 +25,14 @@
     ; (end-in-grandchild (great great grandchild))
 
     (assert! (rule ((great . ?rel) ?g ?d)
-                   (and (end-in-grandchild ?rel)
-                        (son ?g ?gc)
-                        (?rel ?gc ?d))))
+                   (and (son ?g ?gc)
+                        (?rel ?gc ?d)
+                        (end-in-grandchild ?rel))))
     (assert! (rule ((grandchild . ()) ?g ?gc)
                    (grandchild ?g ?gc)))
 
     ((great grandchild) ?g ?ggs)
-    ; 上記のクエリは結果が返るが、以下のクエリは返らない。
-    ; (?relationship Adam Irad)
+    (?relationship Adam Irad)
     ))
 
 (test-queries queries)
