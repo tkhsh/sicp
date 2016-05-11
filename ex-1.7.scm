@@ -6,7 +6,7 @@
     (sqrt-iter (improve guess x) x guess)))
 
 (define (good-enough? guess prev)
-  (< (abs (- guess prev)) 0.001))
+  (< (/ (abs (- guess prev)) guess) 0.001))
 
 (define (sqrt x)
   (sqrt-iter 1.0 x +inf.0))
