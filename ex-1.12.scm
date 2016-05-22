@@ -1,8 +1,8 @@
 (define (pascal-triangle x y)
-  (cond ((= x 1) 1)
-        ((edge? x y) 1)
-        (else (+ (pascal-triangle (- x 1) (- y 1))
-                 (pascal-triangle (- x 1) y)))))
+  (if (edge? x y)
+    1
+    (+ (pascal-triangle (- x 1) (- y 1))
+       (pascal-triangle (- x 1) y))))
 
 (define (edge? x y)
   (cond ((= x y) #t)
