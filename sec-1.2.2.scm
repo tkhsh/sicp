@@ -1,8 +1,8 @@
 (define (r-fib n)
   (cond ((= n 0) 0)
         ((= n 1) 1)
-        (else (+ (fib (- n 1))
-                 (fib (- n 2))))))
+        (else (+ (r-fib (- n 1))
+                 (r-fib (- n 2))))))
 
 (define (i-fib n)
   (fib-iter 1 0 n))
@@ -28,5 +28,7 @@
         ((= kinds-of-coins 5) 50)))
 
 (define (main args)
-  ; (print (count-change 100))
+  (for-each (lambda (n) (print (count-change n))) '(1 2 3 4 5 6 7 8 9 10))
+  ; (print (count-change 10))
+  ; (print (r-fib 7))
   )
